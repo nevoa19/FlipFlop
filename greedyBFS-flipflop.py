@@ -424,47 +424,6 @@ if RODAR_BFS_OFICIAL:
     print(f"Operações (índice, tamanho): {caminho_b}")
     print(f"nos expandidos: {exp_b} | nos visitados: {vis_b} | tempo: {time.perf_counter() - t0:.2f}s")
 
-
-def gerar_grafico_desempenho():
-    tamanhos_bfs = [2, 4, 6, 8, 10, 12]
-    tamanhos_greedy = [2, 4, 6, 8, 10, 15, 20, 50]
-
-    tempos_bfs = []
-    tempos_greedy = []
-
-    print("\ncalculando tempos do BFS...")
-    for L in tamanhos_bfs:
-        e_inicial = gerar_sequencia(L)
-        e_alvo = [0] * L
-
-        t0 = time.time()
-        bfs(e_inicial, e_alvo)
-        tempos_bfs.append(time.time() - t0)
-
-    print("calculando tempos do guloso...")
-    for L in tamanhos_greedy:
-        e_inicial = gerar_sequencia(L)
-        e_alvo = [0] * L
-
-        t0 = time.time()
-        greedy(e_inicial, e_alvo)
-        tempos_greedy.append(time.time() - t0)
-
-    plt.figure(figsize=(8, 5), dpi=300)
-    plt.plot(tamanhos_bfs, tempos_bfs, 'o-', color='#d9534f', linewidth=2, label='BFS')
-    plt.plot(tamanhos_greedy, tempos_greedy, 's-', color='#0275d8', linewidth=2, label='Algoritmo Guloso')
-
-    plt.yscale('log')
-    plt.xlabel('tamanho da sequencia ($L$)', fontsize=12)
-    plt.ylabel('tempo de execucao (s) - escala logaritmica', fontsize=12)
-    plt.title('comparação de desempenho: BFS vs. Algoritmo Guloso', fontsize=13, fontweight='bold')
-    plt.grid(True, which="both", ls="--", alpha=0.5)
-    plt.legend(fontsize=11)
-    plt.tight_layout()
-
-    plt.savefig('desempenho_bfs_greedy.png', dpi=300)
-    print("-> imagem 'desempenho_bfs_greedy.png' salva")
-
 if __name__ == "__main__":
     random.seed(2026)
 
@@ -484,6 +443,3 @@ if __name__ == "__main__":
         i += 1
 
     print("\nfiguras salvas na pasta resultados/")
-
-    gerar_grafico_desempenho()
-    plt.show()
